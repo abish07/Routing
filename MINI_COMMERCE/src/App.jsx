@@ -72,8 +72,8 @@ function App() {
                         />
                     ))}
                 </div>
-                <div>
-                    <button onClick={handleClick}>{showUnpaidOnly?"Showing All":"Showing unPaid Only"}</button>
+                <div className='my-5'>
+                    <button className='text-xl bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4' onClick={handleClick}>{showUnpaidOnly?"↳↰ Showing All":"↳↰ Showing unPaid Only"}</button>
                 </div>
             </div>
         </div>
