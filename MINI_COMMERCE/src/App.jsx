@@ -48,14 +48,30 @@ const UnPaidOrders = orders.filter((order)=>(
     order.isPaid!==true
 ))
 function App() {
+    const [search,setSearch] = useState("");
     const [showUnpaidOnly,setshowUnpaidOnly] = useState(true);
-    const visibleOrders = showUnpaidOnly?orders:UnPaidOrders;
+    // const visibleOrders = showUnpaidOnly?orders:UnPaidOrders;
     function handleClick(){
         setshowUnpaidOnly(!showUnpaidOnly);
     }
+    const visibleOrders = orders
+        .filter((order)=> showUnpaidOnly || !order.isPaid)
+        .filter((order)=>
+            order.customerName.toLowerCase().includes(search.toLocaleLowerCase())
+        )
+    
     return(
         <div className='bg-blue-50 h-[100vh]'>
             <div className='flex flex-col items-center p-[100px]'>
+                <div className='mb-7'>
+                    <input 
+                    className='w-[100vh] bg-slate-800 text-white p-3 rounded-full'
+                    type="text" 
+                    placeholder='Search Orders'
+                    value={search}
+                    onchange={(e)=>setSearch(e.target.value)}
+                    />
+                </div>
                 <div className='flex border rounded bg-blue-900 w-[100vh] h-[70px] text-white items-center pl-20 gap-6' >
                     <h2 className='text-3xl'>🛒</h2>
                     <h3 className='text-3xl'><pre>|   Order Lists</pre></h3>
@@ -73,7 +89,7 @@ function App() {
                     ))}
                 </div>
                 <div className='my-5'>
-                    <button className='text-xl bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4' onClick={handleClick}>{showUnpaidOnly?"↳↰ Showing All":"↳↰ Showing unPaid Only"}</button>
+                    <button className='text-xl bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 cursor-pointer ' onClick={handleClick}>{showUnpaidOnly?"↳↰ Showing All":"↳↰ Showing unPaid Only"}</button>
                 </div>
             </div>
         </div>
